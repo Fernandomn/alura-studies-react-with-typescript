@@ -20,6 +20,7 @@ class Formulario extends React.Component {
 
         <div className={style.inputContainer}>
           <label htmlFor="tempo">Tempo</label>
+
           <input
             type="time"
             step={1}
@@ -31,7 +32,7 @@ class Formulario extends React.Component {
           ></input>
         </div>
 
-        <Botao />
+        <Botao>Adicionar</Botao>
       </form>
     );
   }
