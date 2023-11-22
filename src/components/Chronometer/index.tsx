@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { timeToSeconds } from "../../common/utils/date";
 import { ITask } from "../../types/task";
 import Button from "../Button";
@@ -10,9 +10,13 @@ interface Props {
 }
 
 const Chronometer = ({ selected }: Props) => {
-  const [time, setTime] = useState<number>(
-    timeToSeconds(String(selected?.time))
-  );
+  const [time, setTime] = useState<number>();
+
+  useEffect(() => {
+    if (selected?.time) {
+      setTime(timeToSeconds(String(selected.time)));
+    }
+  }, [selected]);
 
   return (
     <div className={style.cronometro}>
