@@ -34,7 +34,7 @@ class Form extends React.Component<{
             id="tarefa"
             value={this.state.task}
             onChange={(evento) =>
-              this.setState({ ...this.state, tarefa: evento.target.value })
+              this.setState({ ...this.state, task: evento.target.value })
             }
             placeholder="O que você quer estudar?"
             required
@@ -51,7 +51,7 @@ class Form extends React.Component<{
             id="tempo"
             value={this.state.time}
             onChange={(evento) =>
-              this.setState({ ...this.state, tempo: evento.target.value })
+              this.setState({ ...this.state, time: evento.target.value })
             }
             min="00:00:00"
             max="01:30:00"

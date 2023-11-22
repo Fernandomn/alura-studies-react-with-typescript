@@ -14,17 +14,16 @@ function App() {
     setTasks((oldTasks) =>
       oldTasks.map((oldTask) => ({
         ...oldTask,
-        selecionado: oldTask.id === selectedTask.id,
+        selected: oldTask.id === selectedTask.id,
       }))
     );
-
   };
 
   return (
     <div className={style.AppStyle}>
       <Form setTarefas={setTasks} />
       <List tasks={tasks} selectTask={selectTask} />
-      <Chronometer selected={selected}/>
+      <Chronometer selected={selected} />
     </div>
   );
 }
