@@ -1,6 +1,6 @@
 import style from "./Relogio.module.scss";
 
-const Relogio = () => {
+const Watch = () => {
   return (
     <>
       <span className={style.relogioNumero}>0</span>
@@ -12,4 +12,4 @@ const Relogio = () => {
   );
 };
 
-export default Relogio;
+export default Watch;

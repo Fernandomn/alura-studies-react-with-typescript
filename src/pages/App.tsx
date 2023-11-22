@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Cronometro from "../components/Cronometro";
+import Chronometer from "../components/Chronometer";
 import Formulario from "../components/Formulario";
 import Lista from "../components/Lista";
 import { ITarefa } from "../types/tarefa";
@@ -17,14 +17,14 @@ function App() {
         selecionado: oldTask.id === selectedTask.id,
       }))
     );
-    
+
   };
 
   return (
     <div className={style.AppStyle}>
       <Formulario setTarefas={setTarefas} />
       <Lista tarefas={tarefas} selecionaTarefa={selecionaTarefa} />
-      <Cronometro />
+      <Chronometer selected={selecionado}/>
     </div>
   );
 }
