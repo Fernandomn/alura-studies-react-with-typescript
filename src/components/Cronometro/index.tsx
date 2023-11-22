@@ -1,8 +1,11 @@
+import { timeToSeconds } from "../../common/utils/date";
 import Botao from "../Botao";
-import Relogio from "./Relogio";
 import style from "./Cronometro.module.scss";
+import Relogio from "./Relogio";
 
 const Cronometro = () => {
+  console.log("conversão:", timeToSeconds("01:02:03"));
+
   return (
     <div className={style.cronometro}>
       <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
