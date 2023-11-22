@@ -18,15 +18,25 @@ const Chronometer = ({ selected }: Props) => {
     }
   }, [selected]);
 
+  const countdown = (counter: number = 0) => {
+    setTimeout(() => {
+      if (counter > 0) {
+        const newtime = counter - 1;
+        setTime(newtime);
+        return countdown(newtime);
+      }
+    }, 1000);
+  };
+
   return (
     <div className={style.cronometro}>
       <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
 
       <div className={style.relogioWrapper}>
-        <Watch time={time}/>
+        <Watch time={time} />
       </div>
 
-      <Button>Começar</Button>
+      <Button onClick={() => countdown(time)}>Começar</Button>
     </div>
   );
 };
