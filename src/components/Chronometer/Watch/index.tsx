@@ -1,4 +1,4 @@
-import style from "./Relogio.module.scss";
+import style from "./Watch.module.scss";
 
 const Watch = () => {
   return (

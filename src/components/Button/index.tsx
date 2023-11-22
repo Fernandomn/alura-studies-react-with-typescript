@@ -1,7 +1,7 @@
 import React from "react";
-import style from "./Botao.module.scss";
+import style from "./Button.module.scss";
 
-class Botao extends React.Component<{
+class Button extends React.Component<{
   children: string;
   type?: "button" | "submit" | "reset" | undefined;
 }> {
@@ -16,4 +16,4 @@ class Botao extends React.Component<{
   }
 }
 
-export default Botao;
+export default Button;

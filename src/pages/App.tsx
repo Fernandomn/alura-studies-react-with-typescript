@@ -1,17 +1,17 @@
 import { useState } from "react";
 import Chronometer from "../components/Chronometer";
-import Formulario from "../components/Formulario";
-import Lista from "../components/Lista";
-import { ITarefa } from "../types/tarefa";
+import Form from "../components/Form";
+import List from "../components/List";
+import { ITask } from "../types/task";
 import style from "./App.module.scss";
 
 function App() {
-  const [tarefas, setTarefas] = useState<ITarefa[] | []>([]);
-  const [selecionado, setSelecionado] = useState<ITarefa>();
+  const [tasks, setTasks] = useState<ITask[] | []>([]);
+  const [selected, setSelected] = useState<ITask>();
 
-  const selecionaTarefa = (selectedTask: ITarefa) => {
-    setSelecionado(selectedTask);
-    setTarefas((oldTasks) =>
+  const selectTask = (selectedTask: ITask) => {
+    setSelected(selectedTask);
+    setTasks((oldTasks) =>
       oldTasks.map((oldTask) => ({
         ...oldTask,
         selecionado: oldTask.id === selectedTask.id,
@@ -22,9 +22,9 @@ function App() {
 
   return (
     <div className={style.AppStyle}>
-      <Formulario setTarefas={setTarefas} />
-      <Lista tarefas={tarefas} selecionaTarefa={selecionaTarefa} />
-      <Chronometer selected={selecionado}/>
+      <Form setTarefas={setTasks} />
+      <List tasks={tasks} selectTask={selectTask} />
+      <Chronometer selected={selected}/>
     </div>
   );
 }

@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { timeToSeconds } from "../../common/utils/date";
-import { ITarefa } from "../../types/tarefa";
-import Botao from "../Botao";
+import { ITask } from "../../types/task";
+import Button from "../Button";
 import style from "./Chronometer.module.scss";
-import Watch from "./Relogio";
+import Watch from "./Watch";
 
 interface Props {
-  selected?: ITarefa;
+  selected?: ITask;
 }
 
 const Chronometer = ({ selected }: Props) => {
-  const [time, setTime] = useState<number>();
-
-  if (selected?.tempo) {
-    setTime(timeToSeconds(selected.tempo));
-  }
+  const [time, setTime] = useState<number>(
+    timeToSeconds(String(selected?.time))
+  );
 
   return (
     <div className={style.cronometro}>
@@ -23,7 +21,7 @@ const Chronometer = ({ selected }: Props) => {
       <div className={style.relogioWrapper}>
         <Watch />
       </div>
-      <Botao>Começar</Botao>
+      <Button>Começar</Button>
     </div>
   );
 };

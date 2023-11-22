@@ -1,20 +1,20 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ITarefa } from "../../types/tarefa";
-import Botao from "../Botao";
-import style from "./Formulario.module.scss";
+import { ITask } from "../../types/task";
+import Button from "../Button";
+import style from "./Form.module.scss";
 
-class Formulario extends React.Component<{
-  setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>;
+class Form extends React.Component<{
+  setTarefas: React.Dispatch<React.SetStateAction<ITask[]>>;
 }> {
-  initialState = { tarefa: "", tempo: "00:00" };
+  initialState = { task: "", time: "00:00" };
   state = this.initialState;
 
-  adicionarTarefa(evento: React.FormEvent<HTMLFormElement>) {
+  addTask(evento: React.FormEvent<HTMLFormElement>) {
     evento.preventDefault();
-    this.props.setTarefas((oldState: ITarefa[]) => [
+    this.props.setTarefas((oldState: ITask[]) => [
       ...oldState,
-      { ...this.state, selecionado: false, completado: false, id: uuidv4() },
+      { ...this.state, selected: false, completed: false, id: uuidv4() },
     ]);
     this.setState(this.initialState);
   }
@@ -23,7 +23,7 @@ class Formulario extends React.Component<{
     return (
       <form
         className={style.novaTarefa}
-        onSubmit={this.adicionarTarefa.bind(this)}
+        onSubmit={this.addTask.bind(this)}
       >
         <div className={style.inputContainer}>
           <label htmlFor="tarefa">Adicione um novo estudo</label>
@@ -32,7 +32,7 @@ class Formulario extends React.Component<{
             type="text"
             name="tarefa"
             id="tarefa"
-            value={this.state.tarefa}
+            value={this.state.task}
             onChange={(evento) =>
               this.setState({ ...this.state, tarefa: evento.target.value })
             }
@@ -49,7 +49,7 @@ class Formulario extends React.Component<{
             step={1}
             name="tempo"
             id="tempo"
-            value={this.state.tempo}
+            value={this.state.time}
             onChange={(evento) =>
               this.setState({ ...this.state, tempo: evento.target.value })
             }
@@ -59,10 +59,10 @@ class Formulario extends React.Component<{
           ></input>
         </div>
 
-        <Botao type="submit">Adicionar</Botao>
+        <Button type="submit">Adicionar</Button>
       </form>
     );
   }
 }
 
-export default Formulario;
+export default Form;
