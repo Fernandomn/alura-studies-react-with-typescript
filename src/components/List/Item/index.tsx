@@ -26,7 +26,7 @@ const Item = ({
       <h3>{task}</h3>
 
       <span>
-        {totalTime} / {currentTime}
+        {currentTime} / {totalTime}
       </span>
       {status === "completed" && (
         <span className={style.concluido} aria-label="tarefa completada"></span>

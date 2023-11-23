@@ -36,6 +36,7 @@ const Chronometer = ({
   const resetCounter = (): void => {
     if (selected?.totalTime) {
       setTime(timeToSeconds(String(selected.totalTime)));
+      updateCurrentSelectedTime(String(selected.currentTime));
     }
     setRunning(false);
   };
