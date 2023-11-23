@@ -7,17 +7,20 @@ import Watch from "./Watch";
 
 interface Props {
   selected?: ITask;
+  running: boolean;
+  setRunning: (running: boolean) => void;
   endTask: () => void;
   updateCurrentSelectedTime: (newTime: string) => void;
 }
 
 const Chronometer = ({
   selected,
+  running,
+  setRunning,
   endTask,
   updateCurrentSelectedTime,
 }: Props) => {
   const [time, setTime] = useState<number>();
-  const [running, setRunning] = useState(false); // Estado para rastrear se o contador está rodando
 
   useEffect(() => {
     if (selected?.totalTime) {
@@ -49,7 +52,6 @@ const Chronometer = ({
         intervalId = setInterval(() => {
           const newTime = time && time > 0 ? time - 1 : time;
           setTime(newTime);
-          console.log("new time: ", secondsToTime(newTime));
           updateCurrentSelectedTime(secondsToTime(newTime));
         }, 1000);
       } else {

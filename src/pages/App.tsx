@@ -8,8 +8,10 @@ import style from "./App.module.scss";
 function App() {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [selected, setSelected] = useState<ITask>();
+  const [running, setRunning] = useState(false); // Estado para rastrear se o contador está rodando
 
   const selectTask = (selectedTask: ITask) => {
+    setRunning(false);
     setSelected(selectedTask);
     setTasks((oldTasks) =>
       oldTasks.map((task) => ({
@@ -54,7 +56,9 @@ function App() {
       <List tasks={tasks} selectTask={selectTask} />
       <Chronometer
         selected={selected}
+        running={running}
         endTask={endTask}
+        setRunning={setRunning}
         updateCurrentSelectedTime={updateCurrentSelectedTime}
       />
     </div>
