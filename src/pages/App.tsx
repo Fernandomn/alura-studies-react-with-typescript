@@ -19,11 +19,24 @@ function App() {
     );
   };
 
+  const endTask = () => {
+    if (selected) {
+      setSelected(undefined);
+      setTasks((oldTasks) =>
+        oldTasks.map((task) =>
+          task.id === selected.id
+            ? { ...task, selected: false, completed: true }
+            : task
+        )
+      );
+    }
+  };
+
   return (
     <div className={style.AppStyle}>
       <Form setTarefas={setTasks} />
       <List tasks={tasks} selectTask={selectTask} />
-      <Chronometer selected={selected} />
+      <Chronometer selected={selected} endTask={endTask}/>
     </div>
   );
 }

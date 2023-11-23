@@ -7,9 +7,10 @@ import Watch from "./Watch";
 
 interface Props {
   selected?: ITask;
+  endTask: () => void;
 }
 
-const Chronometer = ({ selected }: Props) => {
+const Chronometer = ({ selected, endTask }: Props) => {
   const [time, setTime] = useState<number>();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const Chronometer = ({ selected }: Props) => {
         setTime(newtime);
         return countdown(newtime);
       }
+      endTask();
     }, 1000);
   };
 
