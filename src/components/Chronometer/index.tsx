@@ -12,6 +12,7 @@ interface Props {
 
 const Chronometer = ({ selected, endTask }: Props) => {
   const [time, setTime] = useState<number>();
+  const [running, setRunning] = useState(false); // Estado para rastrear se o contador está rodando
 
   useEffect(() => {
     if (selected?.time) {
@@ -19,16 +20,39 @@ const Chronometer = ({ selected, endTask }: Props) => {
     }
   }, [selected]);
 
-  const countdown = (counter: number = 0) => {
-    setTimeout(() => {
-      if (counter > 0) {
-        const newtime = counter - 1;
-        setTime(newtime);
-        return countdown(newtime);
-      }
-      endTask();
-    }, 1000);
+  const startCounter = () => {
+    setRunning(true);
   };
+
+  const stopCounter = () => {
+    setRunning(false);
+  };
+
+  const resetCounter = () => {
+    if (selected?.time) {
+      setTime(timeToSeconds(String(selected.time)));
+    }
+    setRunning(false);
+  };
+
+  // Efeito para controlar o intervalo de contagem
+  useEffect(() => {
+    let intervalId: NodeJS.Timer;
+    if (running) {
+      if (time) {
+        intervalId = setInterval(() => {
+          setTime((prevCounter) =>
+            prevCounter && prevCounter > 0 ? prevCounter - 1 : prevCounter
+          );
+        }, 1000);
+      } else {
+        endTask();
+      }
+    }
+
+    // Limpar o intervalo quando o componente for desmontado ou o contador for parado
+    return () => clearInterval(intervalId);
+  }, [running, time, endTask]);
 
   return (
     <div className={style.cronometro}>
@@ -38,7 +62,11 @@ const Chronometer = ({ selected, endTask }: Props) => {
         <Watch time={time} />
       </div>
 
-      <Button onClick={() => countdown(time)}>Começar</Button>
+      <div className={style.buttonWrapper}>
+        <Button onClick={startCounter}>Começar</Button>
+        <Button onClick={stopCounter}>Parar</Button>
+        <Button onClick={resetCounter}>Reiniciar</Button>
+      </div>
     </div>
   );
 };
