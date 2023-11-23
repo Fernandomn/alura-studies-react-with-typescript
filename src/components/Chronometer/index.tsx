@@ -21,7 +21,7 @@ const Chronometer = ({
 
   useEffect(() => {
     if (selected?.totalTime) {
-      setTime(timeToSeconds(String(selected.totalTime)));
+      setTime(timeToSeconds(String(selected.currentTime)));
     }
   }, [selected]);
 
