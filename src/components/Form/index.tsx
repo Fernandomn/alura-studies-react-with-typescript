@@ -14,11 +14,17 @@ const Form = ({ setTarefas }: Props) => {
   const [task, setTask] = useState(initialTaskState);
   const [time, setTime] = useState(initialTimeState);
 
-  const addTask = (evento: React.FormEvent<HTMLFormElement>) => {
+  const addTask = (evento: React.FormEvent<HTMLFormElement>): void => {
     evento.preventDefault();
     setTarefas((oldTasks: ITask[]) => [
       ...oldTasks,
-      { task, time, status:'unselected', id: uuidv4() },
+      {
+        task,
+        totalTime: time,
+        currentTime: time,
+        status: "unselected",
+        id: uuidv4(),
+      },
     ]);
     setTask(initialTaskState);
     setTime(initialTimeState);

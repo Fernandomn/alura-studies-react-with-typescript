@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { timeToSeconds } from "../../common/utils/date";
+import { secondsToTime, timeToSeconds } from "../../common/utils/date";
 import { ITask } from "../../types/task";
 import Button from "../Button";
 import style from "./Chronometer.module.scss";
@@ -8,29 +8,34 @@ import Watch from "./Watch";
 interface Props {
   selected?: ITask;
   endTask: () => void;
+  updateCurrentSelectedTime: (newTime: string) => void;
 }
 
-const Chronometer = ({ selected, endTask }: Props) => {
+const Chronometer = ({
+  selected,
+  endTask,
+  updateCurrentSelectedTime,
+}: Props) => {
   const [time, setTime] = useState<number>();
   const [running, setRunning] = useState(false); // Estado para rastrear se o contador está rodando
 
   useEffect(() => {
-    if (selected?.time) {
-      setTime(timeToSeconds(String(selected.time)));
+    if (selected?.totalTime) {
+      setTime(timeToSeconds(String(selected.totalTime)));
     }
   }, [selected]);
 
-  const startCounter = () => {
+  const startCounter = (): void => {
     setRunning(true);
   };
 
-  const stopCounter = () => {
+  const stopCounter = (): void => {
     setRunning(false);
   };
 
-  const resetCounter = () => {
-    if (selected?.time) {
-      setTime(timeToSeconds(String(selected.time)));
+  const resetCounter = (): void => {
+    if (selected?.totalTime) {
+      setTime(timeToSeconds(String(selected.totalTime)));
     }
     setRunning(false);
   };
@@ -41,9 +46,10 @@ const Chronometer = ({ selected, endTask }: Props) => {
     if (running) {
       if (time) {
         intervalId = setInterval(() => {
-          setTime((prevCounter) =>
-            prevCounter && prevCounter > 0 ? prevCounter - 1 : prevCounter
-          );
+          const newTime = time && time > 0 ? time - 1 : time;
+          setTime(newTime);
+          console.log("new time: ", secondsToTime(newTime));
+          updateCurrentSelectedTime(secondsToTime(newTime));
         }, 1000);
       } else {
         endTask();
@@ -52,7 +58,7 @@ const Chronometer = ({ selected, endTask }: Props) => {
 
     // Limpar o intervalo quando o componente for desmontado ou o contador for parado
     return () => clearInterval(intervalId);
-  }, [running, time, endTask]);
+  }, [running, time, endTask, updateCurrentSelectedTime]);
 
   return (
     <div className={style.cronometro}>

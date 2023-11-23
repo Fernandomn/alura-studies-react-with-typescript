@@ -6,7 +6,7 @@ import { ITask } from "../types/task";
 import style from "./App.module.scss";
 
 function App() {
-  const [tasks, setTasks] = useState<ITask[] | []>([]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [selected, setSelected] = useState<ITask>();
 
   const selectTask = (selectedTask: ITask) => {
@@ -24,7 +24,20 @@ function App() {
     );
   };
 
-  const endTask = () => {
+  const updateCurrentSelectedTime = (newTime: string): void => {
+    if (selected) {
+      setTasks((oldTasks) =>
+        oldTasks.map((task) => {
+          if (task.id === selected.id) {
+            task.currentTime = newTime;
+          }
+          return task;
+        })
+      );
+    }
+  };
+
+  const endTask = (): void => {
     if (selected) {
       setSelected(undefined);
       setTasks((oldTasks) =>
@@ -39,7 +52,11 @@ function App() {
     <div className={style.AppStyle}>
       <Form setTarefas={setTasks} />
       <List tasks={tasks} selectTask={selectTask} />
-      <Chronometer selected={selected} endTask={endTask} />
+      <Chronometer
+        selected={selected}
+        endTask={endTask}
+        updateCurrentSelectedTime={updateCurrentSelectedTime}
+      />
     </div>
   );
 }
