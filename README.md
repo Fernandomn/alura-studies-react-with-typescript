@@ -1,7 +1,14 @@
 ### Note: 
-Click below to original Alura's course.
+Clique abaixo para o curso original da Alura.
 
 [React: escrevendo com Typescript](https://cursos.alura.com.br/course/react-modernizando-escrever-typescript)
+
+Mudanças feitas por mim:
+- Adição dos botões Parar e Reiniciar
+- Converter booleanas de status numa única variável
+- Correção de bug que ocorria quando o cronômetro estava rodando, e outro item era selecionado
+- Exibir tempo total, e tempo restante, de uma tarefa
+- Continuar tarefas, ao selecionar um item da lista que já foi iniciado
 
 # Getting Started with Create React App
 
