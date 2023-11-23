@@ -12,9 +12,14 @@ function App() {
   const selectTask = (selectedTask: ITask) => {
     setSelected(selectedTask);
     setTasks((oldTasks) =>
-      oldTasks.map((oldTask) => ({
-        ...oldTask,
-        selected: oldTask.id === selectedTask.id,
+      oldTasks.map((task) => ({
+        ...task,
+        status:
+          task.status === "completed"
+            ? "completed"
+            : task.id === selectedTask.id
+            ? "selected"
+            : "unselected",
       }))
     );
   };
@@ -24,9 +29,7 @@ function App() {
       setSelected(undefined);
       setTasks((oldTasks) =>
         oldTasks.map((task) =>
-          task.id === selected.id
-            ? { ...task, selected: false, completed: true }
-            : task
+          task.id === selected.id ? { ...task, status: "completed" } : task
         )
       );
     }
@@ -36,7 +39,7 @@ function App() {
     <div className={style.AppStyle}>
       <Form setTarefas={setTasks} />
       <List tasks={tasks} selectTask={selectTask} />
-      <Chronometer selected={selected} endTask={endTask}/>
+      <Chronometer selected={selected} endTask={endTask} />
     </div>
   );
 }

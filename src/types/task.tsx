@@ -1,7 +1,6 @@
 export interface ITask {
   task: string;
   time: string;
-  selected: boolean;
-  completed: boolean;
+  status: "unselected" | "selected" | "completed";
   id: string;
 }

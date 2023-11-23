@@ -18,7 +18,7 @@ const Form = ({ setTarefas }: Props) => {
     evento.preventDefault();
     setTarefas((oldTasks: ITask[]) => [
       ...oldTasks,
-      { task, time, selected: false, completed: false, id: uuidv4() },
+      { task, time, status:'unselected', id: uuidv4() },
     ]);
     setTask(initialTaskState);
     setTime(initialTimeState);
